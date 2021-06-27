@@ -11,5 +11,26 @@ library(shiny)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-    output$scrollingtext <- renderUI(HTML('Name1<br/>Name2'))
+  
+    nms <- data.frame(c('Name1', 'Name2'))
+
+    status <- reactiveVal()
+    step <- reactiveVal()
+    
+    autoInvalidate <- reactiveTimer(700)
+
+    i <- 0
+    observe({
+      autoInvalidate()
+      i <<- i+1
+      if(i==10) autoInvalidate <<- reactiveTimer(Inf)
+      step(i)
+      status(nms[i %% 2 + 1,])
+    })
+        
+    output$scrollingtext <- renderText({
+      step()
+      status()
+    })
+
 })

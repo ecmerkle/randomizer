@@ -9,7 +9,7 @@
 
 library(shiny)
 
-basicPage(
+fluidPage(
 
 tags$head(
 tags$style(type="text/css", 
@@ -35,9 +35,9 @@ tags$style(type="text/css",
  -webkit-transform:translateY(100%);	
  transform:translateY(100%);
  /* Apply animation to this element */	
- -moz-animation: scroll-up .7s linear infinite;
- -webkit-animation: scroll-up .7s linear infinite;
- animation: scroll-up .7s linear infinite;
+ -moz-animation: scroll-up .7s linear 10;
+ -webkit-animation: scroll-up .7s linear 10;
+ animation: scroll-up .7s linear 10;
 }
 /* Move it (define the animation) */
 @-moz-keyframes scroll-up {
@@ -62,4 +62,4 @@ tags$style(type="text/css",
 }"
 )),
 
-div(class="scroll-up", h1(htmlOutput("scrollingtext", style="font-size:150px"))))
+div(id="sctext", class="scroll-up", h1(htmlOutput("scrollingtext", style="font-size:150px"))))
