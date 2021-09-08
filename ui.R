@@ -62,4 +62,8 @@ tags$style(type="text/css",
 }"
 )),
 
-div(id="sctext", class="scroll-up", h1(htmlOutput("scrollingtext", style="font-size:150px"))))
+tags$audio(src="beepboop.mp3", type = "audio/mp3", autoplay = NA, controls = NA),
+
+div(id="sctext", class="scroll-up", h1(htmlOutput("scrollingtext", style="font-size:150px")))
+
+)

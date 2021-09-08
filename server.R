@@ -12,25 +12,34 @@ library(shiny)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
   
-    nms <- data.frame(c('Name1', 'Name2'))
+  nms <- data.frame(c('Name1', 'Name2'))
+  
+  status <- reactiveVal()
+  step <- reactiveVal()
 
-    status <- reactiveVal()
-    step <- reactiveVal()
-    
-    autoInvalidate <- reactiveTimer(700)
+  autoInvalidate <- reactiveTimer(700)
 
-    i <- 0
-    observe({
-      autoInvalidate()
-      i <<- i+1
-      if(i==10) autoInvalidate <<- reactiveTimer(Inf)
-      step(i)
-      status(nms[i %% 2 + 1,])
-    })
+  ## insertUI(selector = "#play",
+  ##          where = "afterEnd",
+  ##          ui = tags$audio(src = "beepboop.mp3", type = "audio/mp3", autoplay = NA, controls = NA, style="display:none;")
+  ##          )
         
-    output$scrollingtext <- renderText({
-      step()
-      status()
-    })
+
+  i <- 0
+  ranname <- sample(nms, 1)
+  observe({
+    autoInvalidate()
+    i <<- i+1
+    if(i==10){
+      autoInvalidate <<- reactiveTimer(Inf)
+    }
+    step(i)
+    status(nms[i %% 2 + 1,])
+  })
+        
+  output$scrollingtext <- renderText({
+    step()
+    status()
+  })
 
 })
